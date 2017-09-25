@@ -11,7 +11,8 @@
 
   <ul>
   <% post.comments.each do |comment| %>
-    <li><%= comment.text %></li>
+    <li><%= comment.user.name %> <%= comment.text %></li>
+    <%= link_to 'Delete', post_comment_path(post_id: post.id, id: comment.id), method: :delete %>
   <% end %>
   </ul>
 
