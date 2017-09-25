@@ -9,6 +9,12 @@
     <%= link_to 'Delete Post', post_path(post), data: { confirm: 'Are you sure?' }, method: :delete %>
   <% end %>
 
+  <ul>
+  <% post.comments.each do |comment| %>
+    <li><%= comment.text %></li>
+  <% end %>
+  </ul>
+
   <% if user_signed_in? %>
     <%= simple_form_for Comment.new, url: post_comments_path(post), method: :post do |f| %>
       <%= f.input :text, label: 'Comment', placeholder: 'Add a comment...' %>

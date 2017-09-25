@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: :create
 
   def create
-    @post = Post.find(params[:id])
+    @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params.merge(user_id: current_user.id))
     if @comment.valid?
       redirect_to root_path
@@ -10,6 +10,10 @@ class CommentsController < ApplicationController
       flash[:alert] = "Invalid attributes"
       redirect_to root_path
     end
+  end
+
+  def index
+    @posts = Post.all
   end
 end
 
