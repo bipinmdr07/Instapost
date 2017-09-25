@@ -4,4 +4,5 @@ class Post < ActiveRecord::Base
   mount_uploader :photo, PhotoUploader
 
   validates :photo, :description, :user_id, presence: true
+  acts_as_votable
 end
