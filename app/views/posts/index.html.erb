@@ -30,7 +30,22 @@
       <hr>
 
       <% if user_signed_in? %>
-        <%= simple_form_for Comment.new, url: post_comments_path(post), method: :post do |f| %>
+        <span class="post_like">
+          <% if current_user.voted_up_on? post %>
+            <%= link_to '<i class="fa fa-heart" aria-hidden="true"></i>'.html_safe, post_downvotes_path(post.id), method: :post %>
+          <% else %>
+            <%= link_to '<i class="fa fa-heart-o" aria-hidden="true"></i>'.html_safe, post_upvotes_path(post.id), method: :post %>
+          <% end %>
+          <%= pluralize post.get_likes.size, "like" %>
+        </span>
+      <% else %>
+        <span class="post_like">
+          <i class="fa fa-heart-o" aria-hidden="true"></i> <%= pluralize post.get_likes.size, "like" %>
+        </span>
+      <% end %>
+
+      <% if user_signed_in? %>
+        <%= simple_form_for Comment.new, url: post_comments_path(post), method: :post, html: { class: 'form-horizontal' } do |f| %>
           <%= f.input :text, label: 'Comment', placeholder: 'Add a comment...' %>
           <%= f.submit 'Post', class: 'btn btn-primary btn-block' %>
         <% end %>
