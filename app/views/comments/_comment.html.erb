@@ -1,11 +1,11 @@
 <ul class = "post_comment">
 <% post.comments.each do |comment| %>
   <li>
-    <%= link_to comment.user.name, user_path(comment.user) %> :
+    <%= link_to comment.user_name, user_path(comment.user) %> :
     <span class="comment"><%= comment.text %></span>
     <% if comment.user == current_user %>
       <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, post_comment_path(post_id: post.id, id: comment.id), class: 'comment_delete', method: :delete, remote: true %>
-    <% end %> 
+    <% end %>
   </li>
   <div class="line"></div>
 <% end %>
