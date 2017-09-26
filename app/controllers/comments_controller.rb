@@ -10,7 +10,11 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params.merge(user_id: current_user.id))
     if @comment.valid?
-      redirect_to root_path
+      respond_to do |format|
+        # debugger
+        # format.html { redirect_to root_path}
+        format.js {}
+      end
     else
       flash[:danger] = "Invalid attributes"
       redirect_to root_path
@@ -18,10 +22,12 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    Post.find(params[:post_id]).comments.find(params[:id]).destroy
+    @post = Post.find(params[:post_id])
+    @post.comments.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to root_path }
-      # format.js {}
+
+      format.js {}
     end
   end
 end
