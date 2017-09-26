@@ -2,20 +2,27 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!, only: :create
   before_action :is_owner?, only: :destroy
 
+  def index
+    @comment = Comments.where(post_id: params[:post_id])
+  end
+
   def create
     @post = Post.find(params[:post_id])
     @comment = @post.comments.create(comment_params.merge(user_id: current_user.id))
     if @comment.valid?
       redirect_to root_path
     else
-      flash[:alert] = "Invalid attributes"
+      flash[:danger] = "Invalid attributes"
       redirect_to root_path
     end
   end
 
   def destroy
-    Comment.find(params[:id]).destroy
-    redirect_to root_path
+    Post.find(params[:post_id]).comments.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      # format.js {}
+    end
   end
 end
 
@@ -26,8 +33,10 @@ def comment_params
 end
 
 def is_owner?
-  @comment = Comment.find(params[:id])
-  if @comment.user != current_user
-    redirect_to root_path
+  @comment = Post.find(params[:post_id]).comments.find(params[:id])
+  if current_user != @comment.post.user.id
+    if @comment.user != current_user
+      redirect_to root_path
+    end
   end
 end

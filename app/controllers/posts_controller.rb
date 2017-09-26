@@ -14,14 +14,17 @@ class PostsController < ApplicationController
     @post = current_user.posts.create(post_params)
     if @post.valid?
       redirect_to root_path
+      flash[:success] = "Congratulation!!! You have successfully created new post."
     elsif
       render :new, status: :unprocessable_entity
+      flash[:danger] = "oops!!! something went wrong, Please try again."
     end
   end
 
   def destroy
     Post.find(params[:id]).destroy
     redirect_to root_path
+    flash[:success] = "Your post has been deleted successfully!!!"
   end
 
   def edit
@@ -33,8 +36,10 @@ class PostsController < ApplicationController
     @post.update(post_params)
     if @post.valid?
       redirect_to root_path
+      flash[:success] = "Your post has been successfully updated!!!"
     else
       render :edit, status: :unprocessable_entity
+      flash[:danger] = "Ooops!!! something went wrong, please try again."
     end
   end
 
@@ -50,5 +55,11 @@ def post_params
 end
 
 def is_owner?
-  redirect_to root_path if Post.find(params[:id]).user != current_user
+  # in case the user is directly trying to delete the post itself
+  if (params[:post_id] == nil)
+    redirect_to root_path if Post.find(params[:id]).user != current_user
+  # in case the user is trying to delete the comment
+  else
+    redirect_to root_path if Post.find(params[:post_id]).user != current_user
+  end
 end

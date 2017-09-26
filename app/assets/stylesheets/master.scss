@@ -1,5 +1,5 @@
 body {
-  background-color: #fafafa;
+  background-color: #bbc9c4;
 }
 
 nav {
@@ -8,8 +8,20 @@ nav {
   height: 76px;
 }
 
+.panel {
+  background-color: #fc7f71;
+}
+
+a {
+  color: black;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
 .brand {
   font-family: 'Satisfy', cursive;
+  float: left;
   font-size: 26px;
   vertical-align: middle;
 }
@@ -17,6 +29,7 @@ nav {
 .nav_links {
   vertical-align: middle;
   font-size: 16px;
+  margin: 0 10px;
   font-weight: 500;
   margin: 2 20px;
 }
@@ -27,6 +40,7 @@ nav {
 
 .photo {
   width: 100%;
+  margin-bottom: 10px;
   max-width: 100%;
 }
 
@@ -39,6 +53,11 @@ nav {
   margin-right: -1px;
 }
 
+.well {
+  width: 500px;
+  margin: 45px auto;
+}
+
 .post_header{
   height: 64px;
   padding: 14px 20px;
@@ -49,13 +68,33 @@ nav {
   padding: 10px 24px 0px 24px;
 }
 
-.post_comments {
+ul {
+  list-style: none;
+}
+
+.post_comment {
   padding: 10px 25px;
+}
+
+.comment {
+  font-family: 'Shadows Into Light', cursive;
+}
+
+.line {
+  width: 100%;
+  height: 2px;
+  border-bottom: 1px solid black;
+}
+
+.comment_delete {
+  float: right;
+  margin-right: 20px;
 }
 
 .timestamp {
   color: #a5a7aa;
   font-weight: 500;
+  margin-left: 20px;
 }
 
 .prof_header {
@@ -105,7 +144,32 @@ nav {
 }
 
 .post_like {
+  margin-left: 10px;
+  margin-top: 10px;
   .fa {
     font-size: 20px;
   }
+}
+
+.inline-form {
+  width: 100%;
+  .comment_text{
+    width: 85%;
+      textarea {
+        width: 100%;
+        height: 35px;
+      }
+  }
+  .btn {
+    width: 15%;
+    float: right;
+  }
+}
+
+.container {
+  max-width: 700px;
+}
+
+.fa-heart {
+  color: red;
 }

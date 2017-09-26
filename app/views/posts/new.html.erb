@@ -1,5 +1,7 @@
-<%= simple_form_for @post do |f| %>
-  <%= f.input :photo %>
-  <%= f.input :description %>
-  <%= f.submit 'Post' %>
-<% end %>
+<div class="well">
+  <%= simple_form_for @post do |f| %>
+    <%= f.input :photo %>
+    <%= f.input :description %>
+    <%= f.submit 'Post' %>
+  <% end %>
+</div>
