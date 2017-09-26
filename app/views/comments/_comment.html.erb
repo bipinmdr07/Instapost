@@ -3,7 +3,9 @@
   <li>
     <%= link_to comment.user.name, user_path(comment.user) %> :
     <span class="comment"><%= comment.text %></span>
-    <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, post_comment_path(post_id: post.id, id: comment.id), class: 'comment_delete', method: :delete, remote: true %>
+    <% if comment.user == current_user %>
+      <%= link_to '<span class="glyphicon glyphicon-trash"></span>'.html_safe, post_comment_path(post_id: post.id, id: comment.id), class: 'comment_delete', method: :delete, remote: true %>
+    <% end %> 
   </li>
   <div class="line"></div>
 <% end %>

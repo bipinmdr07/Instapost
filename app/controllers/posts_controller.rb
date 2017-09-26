@@ -57,7 +57,10 @@ end
 def is_owner?
   # in case the user is directly trying to delete the post itself
   if (params[:post_id] == nil)
-    redirect_to root_path if Post.find(params[:id]).user != current_user
+    if Post.find(params[:id]).user != current_user
+      redirect_to root_path
+      flash[:warning] = "You are not authorized to delete this post"
+    end
   # in case the user is trying to delete the comment
   else
     redirect_to root_path if Post.find(params[:post_id]).user != current_user

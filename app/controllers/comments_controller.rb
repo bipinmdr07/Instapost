@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
     if @comment.valid?
       respond_to do |format|
         # debugger
-        # format.html { redirect_to root_path}
+        format.html { redirect_to root_path}
         format.js {}
       end
     else
@@ -26,7 +26,6 @@ class CommentsController < ApplicationController
     @post.comments.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to root_path }
-
       format.js {}
     end
   end
@@ -39,10 +38,23 @@ def comment_params
 end
 
 def is_owner?
-  @comment = Post.find(params[:post_id]).comments.find(params[:id])
-  if current_user != @comment.post.user.id
-    if @comment.user != current_user
-      redirect_to root_path
+  if params[:post_id] == nil
+  else
+    @comment = Post.find(params[:post_id]).comments.find(params[:id])
+    if current_user != @comment.post.user.id
+      if @comment.user != current_user
+        flash[:warning] = "You are not authorized to delete this comment"
+        redirect_to root_path
+      end
     end
   end
+  # if (params[:post_id] == nil)
+  #   if Post.find(params[:id]).user != current_user
+  #     redirect_to root_path
+  #     flash[:warning] = "You are not authorized to delete this post"
+  #   end
+  # # in case the user is trying to delete the comment
+  # else
+  #   redirect_to root_path if Post.find(params[:post_id]).user != current_user
+  # end
 end
