@@ -7,7 +7,7 @@ gem 'rails', '4.2.6'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
-gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'bootstrap-sass', '~> 3.4'
 gem 'carrierwave'
 gem 'simple_form'
 gem 'acts_as_votable', '~> 0.10.0'
